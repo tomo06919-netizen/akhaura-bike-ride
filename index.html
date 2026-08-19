@@ -1,37 +1,58 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ভাড়া হিসাব ক্যালকুলেটর</title>
+<style>
+body { font-family: Arial, sans-serif; background-color: #eef2f3; padding: 20px; display: flex; justify-content: center; align-items: center; height: 90vh; margin: 0; }
+.container { width: 100%; max-width: 400px; background: white; padding: 25px; border-radius: 12px; box-shadow: 0px 4px 15px rgba(0,0,0,0.1); }
+h2 { text-align: center; color: #333; margin-bottom: 20px; }
+label { font-weight: bold; display: block; margin-top: 12px; color: #555; }
+input { width: 100%; padding: 10px; margin-top: 6px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+button { background: #007bff; color: white; border: none; padding: 12px; width: 100%; margin-top: 20px; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; }
+button:hover { background: #0056b3; }
+.result { margin-top: 20px; font-size: 18px; font-weight: bold; text-align: center; color: #28a745; background: #e9f7ef; padding: 12px; border-radius: 6px; }
+</style>
+</head>
 <body>
-  <div class="header">
-    <h1>আখাউড়া বাইক রাইড</h1>
-  </div>
 
-  <div style="max-width: 500px; margin: 20px auto; padding: 15px;">
-    <h2>বাইক রাইড বুকিং</h2>
-    <form>action="https://wa.me/8801798553412" method="get" target="_blank">
-      <p>
-        <label>আপনার নাম:</label><br>
-        <input type="text" placeholder=মো:মেহরাজ মাহমুদ" style="width:100%; padding:8px; margin-top:5px;">
-      </p>
-      <p>
-        <label>ফোন নম্বর:</label><br>
-        <input type="tel" placeholder="০১৭xxxxxxxx" style="width:100%; padding:8px; margin-top:5px;">
-      </p>
-      <p>
-        <label>কোথা থেকে যাবেন (পিক-আপ):</label><br>
-        <input type="text" placeholder="যেমন: আখাউড়া স্টেশন" style="width:100%; padding:8px; margin-top:5px;">
-      </p>
-      <p>
-        <label>গন্তব্য (ড্রপ-অফ):</label><br>
-        <input type="text" placeholder="যেমন: গঙ্গারামপুর" style="width:100%; padding:8px; margin-top:5px;">
-      </p>
+<div class="container">
+<h2>ভাড়া হিসাব ক্যালকুলেটর</h2>
 
-      <div class="total">
-        আনুমানিক ভাড়া: ৳৫০
-      </div>
+<label for="destination">গন্তব্য বা রুট:</label>
+<input type="text" id="destination" placeholder="যেমন: মহাখালী থেকে সাভার">
 
-      <button type="submit" style="width:100%; background:#111; color:white; padding:10px; border:none; margin-top:10px; border-radius:5px; font-weight:bold;">রাইড বুক করুন</button>
-    </form>
+<label for="km">মোট দূরত্ব (কিলোমিটার):</label>
+<input type="number" id="km" placeholder="দূরত্ব লিখুন">
 
-    <div class="status" style="margin-top:15px;">
-      তথ্য পূরণ করে রাইড নিশ্চিত করুন।
-    </div>
-  </div>
+<button onclick="calculateFare()">ভাড়া হিসাব করুন</button>
+
+<div class="result" id="resultBox" style="display:none;"></div>
+</div>
+
+<script>
+function calculateFare() {
+let km = document.getElementById('km').value;
+let destination = document.getElementById('destination').value;
+
+// --- এখান থেকে আপনি নিজের মতো করে সেটিংস পরিবর্তন করতে পারবেন ---
+let baseFare = 40; // ন্যূনতম বা প্রারম্ভিক ভাড়া (টাকা)
+let ratePerKm = 20; // প্রতি কিলোমিটার ভাড়া (টাকা)
+// ----------------------------------------------------------------
+
+if(km === "" || km <= 0) {
+alert("দয়া করে সঠিক কিলোমিটার লিখুন!");
+return;
+}
+
+let totalFare = Number(baseFare) + (Number(km) * Number(ratePerKm));
+
+let resultDiv = document.getElementById('resultBox');
+resultDiv.style.display = "block";
+resultDiv.innerHTML = `রুট: ${destination ? destination : 'নির্দিষ্ট নয়'}<br>মোট ভাড়া: ${totalFare} টাকা`;
+}
+</script>
+
 </body>
+</html>
